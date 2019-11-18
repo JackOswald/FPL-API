@@ -4,37 +4,37 @@
 <style>
 
 #player_info {
- font: "Arial";
- border-collapse: collapse;
- width: 100%;
+	font: "Arial";
+	border-collapse: collapse;
+	width: 100%;
 }
 
 #player_info td, #player_info th {
- border: 1px solid #ddd;
- padding: 5px;
+ 	border: 1px solid #ddd;
+ 	padding: 5px;
 }
 
 #player_info tr:nth-child(even) {
 	background-color: #f2f2f2;
-	}
+}
 
 #player_info tr:hover {
 	background-color: #ddd;
-	}
+}
 
 #player_info th {
- padding-top: 12px;
- padding-bottom: 12px;
- text-align: left;
- background-color: #242424;
- color: white;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #242424;
+	color: white;
 }
 
 </style>
 </head>
 
 <?php
-//$fplAPI = file_get_contents("https://fantasy.premierleague.com/api/bootstrap-static/");
+// Retrieve info from our API using cURL
 $curl = curl_init();
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://fantasy.premierleague.com/api/bootstrap-static/",
@@ -56,6 +56,7 @@ $data = json_decode($fplAPI, true);
 
 <button onclick="doCSV()"">Export HTML Table To CSV File</button>
 
+<!--Fill first table row with our headings for our data -->
 <table id ="player_info">
 <tr>
  <th>ID</th>
@@ -93,6 +94,7 @@ $data = json_decode($fplAPI, true);
 </tr>
 
 <?php
+// Loop through all of our data and add it into our table
 foreach($data['elements'] as $key=>$item)
 {
 	?>
@@ -194,11 +196,6 @@ foreach($data['elements'] as $key=>$item)
     var link = document.createElement('a');
     link.download = "fplinfo.csv";
     link.href = "data:application/csv," + escape(data);
-    link.click();
+	link.click();
 	
- function displayFullTable()
- {
-	
- }
- 
 }</script>
